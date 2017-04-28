@@ -14,7 +14,7 @@ import model.Crianca;
 /**
  * Servlet implementation class GestaoP
  */
-@WebServlet("/GestaoP")
+@WebServlet("/GestaoC")
 public class GestaoC extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,11 +22,11 @@ public class GestaoC extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	
-	ArrayList<Crianca> c;
-	int n=0;
+	private ArrayList<Crianca> c;
 	
     public GestaoC() {
         super();
+        c = new ArrayList<Crianca>();
         // TODO Auto-generated constructor stub
     }
 
@@ -35,7 +35,11 @@ public class GestaoC extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		request.setAttribute("listaC", c);
+		
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -45,8 +49,9 @@ public class GestaoC extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		
-		c.add(new Crianca(n, request.getParameter("nome"), request.getParameter("data"), request.getParameter("cc"), request.getParameter("obs")));
+		c.add(new Crianca(1, request.getParameter("nome"), request.getParameter("data"), request.getParameter("cc"), request.getParameter("obs")));
 		
+		this.doGet(request, response);
 	}
 
 }
